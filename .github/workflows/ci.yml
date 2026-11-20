@@ -7,5 +7,18 @@ jobs:
   hello:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
       - name: Say hello
         run: echo hello
+
+      - name: Check v1.txt length
+        shell: bash
+        run: |
+          count=$(wc -m < v1.txt)
+          echo "v1.txt has $count characters"
+          if [ "$count" -gt 30 ]; then
+            echo "v1.txt exceeds the 30-character limit."
+            exit 1
+          fi
